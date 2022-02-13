@@ -1,13 +1,17 @@
+//color values for cone
 const RED = 0.7;
 const GREEN = 0.1;
 const BLUE = 0.1;
 const ALPHA = 0.3;
 
+//renders cone
 function render()
 {
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	cone.render();
 }
+
+//initial function
 
 function init()
 {
