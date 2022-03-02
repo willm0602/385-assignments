@@ -1,12 +1,7 @@
 function Cube(gl) {
 
     var program = initShaders(gl, "Cube-vertex-shader", "Cube-fragment-shader");
-    aPosition = gl.getAttribLocation(program, "aPos");
-    mv = gl.getUniformLocation(program, 'mv');
-    p = gl.getUniformLocation(program, "p")
 
-    this.mv = mat4();
-    this.p = mat4();
 
     //coordinates
     const ZERO = [-1, -1, -1]
@@ -80,15 +75,21 @@ function Cube(gl) {
     positions.aPosition = gl.getAttribLocation( program, "aPosition" );
     gl.enableVertexAttribArray( positions.aPosition );
 
+    MV = gl.getUniformLocation(program, "MV");
+    this.MV = mat4();
+    P = gl.getUniformLocation(program, "P");
+    this.P = mat4();
+
     this.render = function () {
         gl.useProgram( program );
-        gl.uniformMatrix4fv(mv, false, this.mv);
-        gl.uniformMatrix4fv(p, false, this.p);
 
         gl.bindBuffer( gl.ARRAY_BUFFER, positions.buffer );
         gl.vertexAttribPointer( positions.aPosition, positions.numComponents,
             gl.FLOAT, false, 0, 0 );
- 
+        
+        gl.uniformMatrix4fv(MV, false, flatten(this.MV));
+        gl.uniformMatrix4fv(P, false, flatten(this.P));
+        
         gl.bindBuffer( gl.ELEMENT_ARRAY_BUFFER, indices.buffer );
         gl.drawElements( gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0 );
     }

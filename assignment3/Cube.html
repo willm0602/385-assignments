@@ -8,13 +8,15 @@
     <script id="Cube-vertex-shader" type="x-shader/x-vertex">#version 300 es
         in vec4 aPosition;
         
-        uniform mat4 mv;
-        uniform mat4 p;
+        uniform mat4 MV;
+        uniform mat4 P;
 
         void main()
         {
             gl_PointSize = 3.0;
-            gl_Position = mv * aPosition;
+            vec4 pos = aPosition;
+            pos.xyz = pos.xyz * 0.5;
+            gl_Position = P * MV * pos;
         }
     </script>
 
